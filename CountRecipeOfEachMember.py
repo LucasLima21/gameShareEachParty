@@ -42,7 +42,6 @@ def showReceiversWithAudit(igneousPrice, countParties, resultReceivers, quantity
     print("Unidade Igneous vendido a", str(igneousPrice)+"c")
     print("Total de Igneous: ", countParties)
     print("Lucro Total: ", str(igneousPrice * countParties)+"c")
-    # print("\nContemplados(Quantidades que participou) = Lucro Final Individual")
 
     acumulateFinalToCheck = 0
     realValueForEachReceiver = []
@@ -50,7 +49,6 @@ def showReceiversWithAudit(igneousPrice, countParties, resultReceivers, quantity
         finalValueToReceive =  math.floor(igneousPrice/quantityPlayersForParty) * quantityForPlayer[i]
         realValueForEachReceiver.append(finalValueToReceive)
         acumulateFinalToCheck += finalValueToReceive
-        #     print("%s(%i) = *%ic*" %(resultReceivers[i],quantityForPlayer[i],finalValueToReceive))
 
     print("\nAuditoria achou inconsistencias devido a impossiblidade de quebra em decimais dos coins ! 😡")
     print("Coins Totais Recebidos: ", str(igneousPrice * countParties)+"c")
