@@ -9,8 +9,8 @@ def ocurrenceDivisionPlayers(aux, resultReceivers, quantityForPlayer):
             quantityForPlayer.append(1)
 
 
-def audit(igneousPrice, countParties, resultReceivers, quantityForPlayer, quantityPlayersForParty, realValueForEachReceiver):
-    totalOverflowCoinsByGroups = ((igneousPrice/quantityPlayersForParty) - math.floor(igneousPrice/quantityPlayersForParty))
+def audit(price, countParties, resultReceivers, quantityForPlayer, quantityPlayersForParty, realValueForEachReceiver):
+    totalOverflowCoinsByGroups = ((price/quantityPlayersForParty) - math.floor(price/quantityPlayersForParty))
     totalOverflow = countParties * totalOverflowCoinsByGroups * quantityPlayersForParty
     print("Coins Totais Excedentes: ", "*%ic*" % totalOverflow)
     print("Coins Totais Excedentes e auditados a dividir para todos os *%i* que estão no share: *%.3fc*" % (len(resultReceivers), totalOverflow/len(resultReceivers)))
@@ -23,47 +23,48 @@ def audit(igneousPrice, countParties, resultReceivers, quantityForPlayer, quanti
             lastAcumulatedToShow += realValueForEachReceiver[i]+excceedToIncludeIShare
             print("%s(%i) = *%ic*" %(resultReceivers[i],quantityForPlayer[i],realValueForEachReceiver[i]+excceedToIncludeIShare))    
         print("\nOBS.: Excedente do excedente fica com quem está pagando, pois não é possível outra divisão.")
-        print("Total efetivamente dividido: *%ic*, Logo dos *%ic*, *%ic* é imposto ! 😋 " %(lastAcumulatedToShow, igneousPrice*countParties, excceedToIncludeIShare))
+        print("Total efetivamente dividido: *%ic*, Logo dos *%ic*, *%ic* é imposto ! 😋 " %(lastAcumulatedToShow, price*countParties, excceedToIncludeIShare))
     else: 
         print("Valor excedente menor que o total de contemplados, logo não é possivel divisão entre todos !")
     
 
-def showReceiversWithoutAudit(igneousPrice, countParties, resultReceivers, quantityForPlayer, quantityPlayersForParty):
-    print("Unidade Igneous vendido a *%ic*" %(igneousPrice))
-    print("Total de Igneous: *%i*" %countParties)
-    print("Lucro Total: *%ic*" %(igneousPrice * countParties))
+def showReceiversWithoutAudit(itemName, price, countParties, resultReceivers, quantityForPlayer, quantityPlayersForParty):
+    print("Unidade %s vendido a *%ic*" %(itemName, price))
+    print("Total de %s: *%i*" %(itemName, countParties))
+    print("Lucro Total: *%ic*" %(price * countParties))
     
     for i in range(len(resultReceivers)):
-        finalValueToReceive =  math.floor(igneousPrice/quantityPlayersForParty) * quantityForPlayer[i]
+        finalValueToReceive =  math.floor(price/quantityPlayersForParty) * quantityForPlayer[i]
         print("%s(%i) = *%ic*" %(resultReceivers[i],quantityForPlayer[i],finalValueToReceive))
     print("\nValores auditados, conferidos e checados ! 😎")
 
-def showReceiversWithAudit(igneousPrice, countParties, resultReceivers, quantityForPlayer, quantityPlayersForParty): 
-    print("Unidade Igneous vendido a *%ic*" %(igneousPrice))
-    print("Total de Igneous: *%i*" %countParties)
-    print("Lucro Total: *%ic*" %(igneousPrice * countParties))
+def showReceiversWithAudit(itemName, price, countParties, resultReceivers, quantityForPlayer, quantityPlayersForParty): 
+    print("Unidade %s vendido a *%ic*" %(itemName, price))
+    print("Total de %s: *%i*" %(itemName, countParties))
+    print("Lucro Total: *%ic*" %(price * countParties))
     acumulateFinalToCheck = 0
     realValueForEachReceiver = []
     for i in range(len(resultReceivers)):
-        finalValueToReceive =  math.floor(igneousPrice/quantityPlayersForParty) * quantityForPlayer[i]
+        finalValueToReceive =  math.floor(price/quantityPlayersForParty) * quantityForPlayer[i]
         realValueForEachReceiver.append(finalValueToReceive)
         acumulateFinalToCheck += finalValueToReceive
 
     print("\nAuditoria achou inconsistencias devido a impossiblidade de quebra em decimais dos coins ! 😡")
-    print("Coins Totais Recebidos: *%ic*" %(igneousPrice * countParties))
+    print("Coins Totais Recebidos: *%ic*" %(price * countParties))
     print("Valor total inteiro a dividir entre os contemplados: *%ic*" %acumulateFinalToCheck)
-    audit(igneousPrice, countParties, resultReceivers, quantityForPlayer, quantityPlayersForParty, realValueForEachReceiver)
+    audit(price, countParties, resultReceivers, quantityForPlayer, quantityPlayersForParty, realValueForEachReceiver)
         
     
-def needToBeAudited(igneousPrice, countParties, resultReceivers, quantityForPlayer, quantityPlayersForParty):
-    if igneousPrice % quantityPlayersForParty == 0:
-        showReceiversWithoutAudit(igneousPrice, countParties, resultReceivers, quantityForPlayer, quantityPlayersForParty)
+def needToBeAudited(itemName, price, countParties, resultReceivers, quantityForPlayer, quantityPlayersForParty):
+    if price % quantityPlayersForParty == 0:
+        showReceiversWithoutAudit(itemName, price, countParties, resultReceivers, quantityForPlayer, quantityPlayersForParty)
     else:
-        showReceiversWithAudit(igneousPrice, countParties, resultReceivers, quantityForPlayer, quantityPlayersForParty)
+        showReceiversWithAudit(itemName, price, countParties, resultReceivers, quantityForPlayer, quantityPlayersForParty)
 
 
 def entrance():  
-    igneousPrice = int(input())
+    price = int(input())
+    itemName = str(input())
     parties = ''
     resultReceivers = []
     quantityForPlayer = []
@@ -79,7 +80,7 @@ def entrance():
             quantityPlayersForParty = len(aux)
     
     if quantityPlayersForParty == defaultPartyQuantity:
-        needToBeAudited(igneousPrice, countParties, resultReceivers, quantityForPlayer, quantityPlayersForParty)
+        needToBeAudited(itemName, price, countParties, resultReceivers, quantityForPlayer, quantityPlayersForParty)
     else:
         print("Por favor verifique se todas as pt's possuem a mesma qtd de membros")
 
