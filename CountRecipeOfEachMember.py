@@ -26,9 +26,8 @@ def audit(price, countParties, resultReceivers, quantityForPlayer, quantityPlaye
         print("Total efetivamente dividido: *%ic*, Logo dos *%ic*, *%ic* é imposto ! 😋 " %(lastAcumulatedToShow, price*countParties, excceedToIncludeIShare))
     else: 
         excceedToIncludeIShare = math.floor(totalOverflow/len(resultReceivers))
-        print("Não há coins que suficientes que possam ser divididos entre todos os contemplados dessa leva, ou seja, todos os *%i* contemplados recebem apenas o valor normal" %(len(resultReceivers)))
+        print("Não há coins suficientes que possam ser divididos entre todos os contemplados dessa leva, ou seja, todos os *%i* contemplados recebem apenas o valor normal" %(len(resultReceivers)))
         print("Valor excedente menor que o total de contemplados, logo não é possivel divisão entre todos !")
-        # print("\nQuem reparte fica com o excedente de *%i*" %(excceedToIncludeIShare))
         for i in range(len(resultReceivers)):
             lastAcumulatedToShow += realValueForEachReceiver[i]+excceedToIncludeIShare
             print("%s(%i) = *%ic*" %(resultReceivers[i],quantityForPlayer[i],realValueForEachReceiver[i]+excceedToIncludeIShare))    
